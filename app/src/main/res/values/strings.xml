@@ -10,8 +10,16 @@
     <string name="total_time">Total time:</string>
     <string name="very_poor">Very poor</string>
     <string name="poor">Poor</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
     <string name="good">Good</string>
+    <string name="very_good">Very good</string>
     <string name="excellent">Excellent</string>
     <string name="current">Current</string>
+    <string name="choose_sleep_quality">Choose sleep quality</string>
+    <string name="quality_0">Sleep quality 0</string>
+    <string name="quality_1">Sleep quality 1</string>
+    <string name="quality_2">Sleep quality 2</string>
+    <string name="quality_3">Sleep quality 3</string>
+    <string name="quality_4">Sleep quality 4</string>
+    <string name="quality_5">Sleep quality 5</string>
 </resources>

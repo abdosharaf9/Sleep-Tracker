@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.abdosharaf.sleeptracker.R
 import com.abdosharaf.sleeptracker.database.SleepNight
@@ -15,11 +14,9 @@ import com.abdosharaf.sleeptracker.database.SleepNightsDatabase.Companion.getDat
 import com.abdosharaf.sleeptracker.databinding.FragmentListBinding
 import com.abdosharaf.sleeptracker.databinding.ItemCurrentBinding
 import com.abdosharaf.sleeptracker.databinding.ItemNightBinding
-import com.abdosharaf.sleeptracker.utils.LangChanger.changeLang
+import com.abdosharaf.sleeptracker.utils.Constants.TAG
 import com.abdosharaf.sleeptracker.utils.getTime
 import com.abdosharaf.sleeptracker.utils.getTotalTime
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class ListFragment : Fragment() {
 
@@ -37,16 +34,15 @@ class ListFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        viewModel.navigateToSleepQuality.observe(viewLifecycleOwner) { night ->
-            night?.let {
-                findNavController().navigate(ListFragmentDirections.actionListFragmentToQualityFragment(night.id))
+        viewModel.navigateToQualityScreen.observe(viewLifecycleOwner) { id ->
+            id?.let {
+                findNavController().navigate(ListFragmentDirections.actionListFragmentToQualityFragment(id))
                 viewModel.doneNavigating()
             }
         }
 
         viewModel.sleepNights.observe(viewLifecycleOwner) { nights ->
-            // TODO: Update the UI
-            Log.d("TAG", "List is updated = $nights")
+            Log.d(TAG, "List is updated, ${nights.size} ===> $nights")
             binding.list.removeAllViews()
             nights.forEach { night ->
                 if(night.startTime == night.endTime) {
@@ -58,6 +54,11 @@ class ListFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.initializeTonight()
     }
 
     private fun addNightView(night: SleepNight) {
@@ -77,12 +78,13 @@ class ListFragment : Fragment() {
 
     private fun getQuality(quality: Int): String {
         return when(quality) {
-            1 -> getString(R.string.very_poor)
-            2 -> getString(R.string.poor)
-            3 -> getString(R.string.ok)
-            4 -> getString(R.string.good)
+            0 -> getString(R.string.very_poor)
+            1 -> getString(R.string.poor)
+            2 -> getString(R.string.ok)
+            3 -> getString(R.string.good)
+            4 -> getString(R.string.very_good)
             5 -> getString(R.string.excellent)
-            else -> getString(R.string.excellent)
+            else -> "--"
         }
     }
 }

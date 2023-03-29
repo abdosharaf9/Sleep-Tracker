@@ -3,68 +3,89 @@ package com.abdosharaf.sleeptracker.listScreen
 import androidx.lifecycle.*
 import com.abdosharaf.sleeptracker.database.SleepNight
 import com.abdosharaf.sleeptracker.database.SleepNightsDatabase
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class ListViewModel(private val database: SleepNightsDatabase) : ViewModel() {
 
     val sleepNights = database.sleepNightsDAO.getAllNights()
-    private val tonight = MutableLiveData<SleepNight?>()
 
-    private val _navigateToSleepQuality = MutableLiveData<SleepNight?>()
-    val navigateToSleepQuality: LiveData<SleepNight?>
-        get() = _navigateToSleepQuality
+    private val _tonight = MutableLiveData<SleepNight?>()
 
-    val startButtonVisible = Transformations.map(tonight) {
-        null == it
+    private val _navigateToQualityScreen = MutableLiveData<Long?>()
+    val navigateToQualityScreen: LiveData<Long?>
+        get() = _navigateToQualityScreen
+
+
+    val showStartButton = Transformations.map(_tonight) {
+        it == null
     }
 
-    val stopButtonVisible = Transformations.map(tonight) {
-        null != it
+    val showStopButton = Transformations.map(_tonight) {
+        it != null
     }
 
-    val clearButtonVisible = Transformations.map(sleepNights) {
-        it?.isNotEmpty()
+    val showClearButton = Transformations.map(sleepNights) {
+        it.isNotEmpty()
     }
 
     init {
         initializeTonight()
     }
 
-    private fun initializeTonight() {
-        viewModelScope.launch {
-            tonight.value = database.sleepNightsDAO.getTonight()
-            if (tonight.value?.endTime != tonight.value?.startTime) {
-                tonight.value = null
+    private suspend fun getTonight() {
+        _tonight.value = database.sleepNightsDAO.getTonight()
+
+        _tonight.value?.let {
+            if(it.startTime != it.endTime){
+                _tonight.value = null
             }
         }
     }
 
-    fun insertNight() {
+    fun initializeTonight() {
         viewModelScope.launch {
-            database.sleepNightsDAO.insertNight(SleepNight())
-            initializeTonight()
+            getTonight()
         }
+    }
+
+    private suspend fun insertNewNight() {
+        database.sleepNightsDAO.insertNight(SleepNight())
+    }
+
+    fun startTracking() {
+        viewModelScope.launch {
+            insertNewNight()
+            getTonight()
+        }
+    }
+
+    private suspend fun updateNight(night: SleepNight) {
+        database.sleepNightsDAO.updateNight(night)
     }
 
     fun stopTracking() {
         viewModelScope.launch {
-            val oldNight = tonight.value ?: return@launch
-            oldNight.endTime = System.currentTimeMillis()
-            database.sleepNightsDAO.updateNight(oldNight)
-            _navigateToSleepQuality.value = oldNight
+            _tonight.value?.let {
+                it.endTime = System.currentTimeMillis()
+                updateNight(it)
+                _navigateToQualityScreen.value = it.id
+            }
         }
+    }
+
+    private suspend fun clearNights() {
+        database.sleepNightsDAO.clearAll()
     }
 
     fun clearAll() {
         viewModelScope.launch {
-            database.sleepNightsDAO.clearAll()
+            clearNights()
+            getTonight()
         }
-        tonight.value = null
     }
 
     fun doneNavigating() {
-        _navigateToSleepQuality.value = null
+        _navigateToQualityScreen.value = null
     }
 
 }

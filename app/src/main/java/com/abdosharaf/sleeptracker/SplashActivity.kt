@@ -1,11 +1,12 @@
 package com.abdosharaf.sleeptracker
 
 import android.annotation.SuppressLint
+import android.app.ActivityOptions
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import androidx.appcompat.app.AppCompatActivity
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
@@ -15,10 +16,14 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         Handler(Looper.getMainLooper()).postDelayed({
-            Intent(this, MainActivity::class.java).also {
-                startActivity(it)
-                finish()
-            }
+            val myIntent = Intent(this, MainActivity::class.java)
+            val options = ActivityOptions.makeCustomAnimation(
+                    this,
+                    R.anim.slide_in_right,
+                    R.anim.slide_out_left
+                )
+            startActivity(myIntent, options.toBundle())
+
         }, 2000)
     }
 }

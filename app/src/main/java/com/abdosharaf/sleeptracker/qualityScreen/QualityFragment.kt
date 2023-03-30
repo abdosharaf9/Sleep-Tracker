@@ -29,6 +29,7 @@ class QualityFragment : Fragment() {
 
         viewModel.setNightId(args.nightId)
 
+        // Navigate back to the list when the user choose a quality
         viewModel.navigateBack.observe(viewLifecycleOwner) {
             findNavController().navigateUp()
         }

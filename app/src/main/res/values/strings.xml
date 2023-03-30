@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Sleep Tracker</string>
+    <string name="app_name" translatable="false">Sleep Tracker</string>
     <string name="start">Start</string>
     <string name="stop">Stop</string>
     <string name="clear_all">Clear all</string>
@@ -7,6 +7,7 @@
     <string name="start_date">Start date:</string>
     <string name="end_date">End date:</string>
     <string name="sleep_quality">Sleep quality:</string>
+    <string name="_sleep_quality">Sleep quality</string>
     <string name="total_time">Total time:</string>
     <string name="very_poor">Very poor</string>
     <string name="poor">Poor</string>
@@ -22,4 +23,7 @@
     <string name="quality_3">Sleep quality 3</string>
     <string name="quality_4">Sleep quality 4</string>
     <string name="quality_5">Sleep quality 5</string>
+    <string name="no_nights">No tracked nights</string>
+    <string name="change_language">Change language</string>
+    <string name="exit">Exit</string>
 </resources>

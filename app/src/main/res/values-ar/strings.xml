@@ -1,0 +1,28 @@
+<resources>
+    <string name="start">إبدأ</string>
+    <string name="stop">توقف</string>
+    <string name="clear_all">مسح الكل</string>
+    <string name="sleep_nights_list">قائمة ليالى النوم</string>
+    <string name="start_date">تاريخ البدء:</string>
+    <string name="end_date">تاريخ الإنتهاء:</string>
+    <string name="sleep_quality">جودة النوم:</string>
+    <string name="_sleep_quality">جودة النوم</string>
+    <string name="total_time">اجمالى الوقت</string>
+    <string name="very_poor">سئ جداً</string>
+    <string name="poor">سئ</string>
+    <string name="ok">عادى</string>
+    <string name="good">جيد</string>
+    <string name="very_good">جيد جداً</string>
+    <string name="excellent">رائع</string>
+    <string name="current">الحالية</string>
+    <string name="choose_sleep_quality">إختار جودة النوم</string>
+    <string name="quality_0">جودة سيئة جداً</string>
+    <string name="quality_1">جودة سيئة</string>
+    <string name="quality_2">جودة عادية</string>
+    <string name="quality_3">جودة جيدة</string>
+    <string name="quality_4">جودة جيدة جداً</string>
+    <string name="quality_5">جودة رائعة</string>
+    <string name="no_nights">لا يوجد ليالى مسجلة</string>
+    <string name="change_language">تغيير اللغة</string>
+    <string name="exit">الخروج</string>
+</resources>

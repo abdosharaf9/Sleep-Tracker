@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/listFragment"
         android:name="com.abdosharaf.sleeptracker.listScreen.ListFragment"
-        android:label="fragment_list"
+        android:label="@string/sleep_nights_list"
         tools:layout="@layout/fragment_list" >
         <action
             android:id="@+id/action_listFragment_to_qualityFragment"
@@ -17,7 +17,7 @@
     <fragment
         android:id="@+id/qualityFragment"
         android:name="com.abdosharaf.sleeptracker.qualityScreen.QualityFragment"
-        android:label="fragment_quality"
+        android:label="@string/_sleep_quality"
         tools:layout="@layout/fragment_quality" >
         <argument
             android:name="night_id"

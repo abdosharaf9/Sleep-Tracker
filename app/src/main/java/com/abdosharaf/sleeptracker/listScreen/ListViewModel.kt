@@ -1,6 +1,7 @@
 package com.abdosharaf.sleeptracker.listScreen
 
 import androidx.lifecycle.*
+import androidx.room.util.EMPTY_STRING_ARRAY
 import com.abdosharaf.sleeptracker.database.SleepNight
 import com.abdosharaf.sleeptracker.database.SleepNightsDatabase
 import kotlinx.coroutines.launch
@@ -14,6 +15,10 @@ class ListViewModel(private val database: SleepNightsDatabase) : ViewModel() {
     private val _navigateToQualityScreen = MutableLiveData<Long?>()
     val navigateToQualityScreen: LiveData<Long?>
         get() = _navigateToQualityScreen
+
+    private val _showSnackBar = MutableLiveData<Boolean>()
+    val showSnackBar: LiveData<Boolean>
+        get() = _showSnackBar
 
 
     val showStartButton = Transformations.map(_tonight) {
@@ -82,10 +87,15 @@ class ListViewModel(private val database: SleepNightsDatabase) : ViewModel() {
             clearNights()
             getTonight()
         }
+        _showSnackBar.value = true
     }
 
     fun doneNavigating() {
         _navigateToQualityScreen.value = null
+    }
+
+    fun doneSnackBar() {
+        _showSnackBar.value = false
     }
 
 }

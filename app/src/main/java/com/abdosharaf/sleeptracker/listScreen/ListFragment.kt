@@ -14,6 +14,7 @@ import com.abdosharaf.sleeptracker.databinding.ItemCurrentBinding
 import com.abdosharaf.sleeptracker.databinding.ItemNightBinding
 import com.abdosharaf.sleeptracker.utils.getTime
 import com.abdosharaf.sleeptracker.utils.getTotalTime
+import com.google.android.material.snackbar.Snackbar
 
 class ListFragment : Fragment() {
 
@@ -58,6 +59,13 @@ class ListFragment : Fragment() {
                         addNightView(night)
                     }
                 }
+            }
+        }
+
+        viewModel.showSnackBar.observe(viewLifecycleOwner) { show ->
+            if(show){
+                Snackbar.make(requireContext(), requireView(), getString(R.string.cleared), Snackbar.LENGTH_SHORT).show()
+                viewModel.doneSnackBar()
             }
         }
 

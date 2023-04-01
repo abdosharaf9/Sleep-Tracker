@@ -25,4 +25,5 @@
     <string name="no_nights">لا يوجد ليالى مسجلة</string>
     <string name="change_language">تغيير اللغة</string>
     <string name="exit">الخروج</string>
+    <string name="cleared">تم الحذف بنجاح</string>
 </resources>

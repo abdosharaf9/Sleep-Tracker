@@ -23,6 +23,7 @@ class SplashActivity : AppCompatActivity() {
                     R.anim.slide_out_left
                 )
             startActivity(myIntent, options.toBundle())
+            finish()
 
         }, 2000)
     }

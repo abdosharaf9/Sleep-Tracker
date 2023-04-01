@@ -26,4 +26,5 @@
     <string name="no_nights">No tracked nights</string>
     <string name="change_language">Change language</string>
     <string name="exit">Exit</string>
+    <string name="cleared">Cleared successfully</string>
 </resources>
